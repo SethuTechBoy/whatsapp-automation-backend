@@ -71,10 +71,10 @@ def whatsapp_webhook(request):
                 print("Message:", text)
 
                 # 🔥 AUTO REPLY
-                send_whatsapp_message(
-                    phone,
-                    "Hello 👋\n\nThanks for contacting us.\nHow can we help you?"
-                )
+send_whatsapp_message(
+    phone,
+    "Welcome to Jasper’s Market, your local grocery store providing farm-fresh produce and high-quality goods!"
+)
 
         except Exception as e:
             print("Error:", e)
@@ -82,4 +82,5 @@ def whatsapp_webhook(request):
         return JsonResponse({"status": "received"}, status=200)
 
     return HttpResponse("ok")
+
 
