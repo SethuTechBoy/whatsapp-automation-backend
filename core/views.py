@@ -4,10 +4,11 @@ import json
 
 VERIFY_TOKEN = "mysecrettoken123"
 
+
 @csrf_exempt
 def whatsapp_webhook(request):
 
-    # Handle HEAD request (important)
+    # Handle HEAD request
     if request.method == "HEAD":
         return HttpResponse("ok")
 
@@ -27,6 +28,20 @@ def whatsapp_webhook(request):
         try:
             body = json.loads(request.body)
             print("Incoming Data:", body)
+
+            entry = body["entry"][0]
+            changes = entry["changes"][0]
+            value = changes["value"]
+
+            messages = value.get("messages")
+
+            if messages:
+                phone = messages[0]["from"]
+                text = messages[0]["text"]["body"]
+
+                print("User:", phone)
+                print("Message:", text)
+
         except Exception as e:
             print("Error:", e)
 
