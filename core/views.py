@@ -10,7 +10,7 @@ WHATSAPP_TOKEN = "EAASI3WSjMZA8BQ8AP0AqshFjkvTdOUeLwI25vmyxDs3WbNZCpRvZBqAEKmIsA
 PHONE_NUMBER_ID = "1065650129956489"
 
 
-def send_whatsapp_message(to, message):
+def send_whatsapp_message(to):
     url = f"https://graph.facebook.com/v22.0/{PHONE_NUMBER_ID}/messages"
 
     headers = {
@@ -18,12 +18,16 @@ def send_whatsapp_message(to, message):
         "Content-Type": "application/json"
     }
 
+    # Template message (Sandbox safe)
     data = {
         "messaging_product": "whatsapp",
         "to": to,
-        "type": "text",
-        "text": {
-            "body": message
+        "type": "template",
+        "template": {
+            "name": "jaspers_market_plain_text_v1",
+            "language": {
+                "code": "en_US"
+            }
         }
     }
 
@@ -67,10 +71,8 @@ def whatsapp_webhook(request):
                 print("User:", phone)
                 print("Message:", text)
 
-                send_whatsapp_message(
-                    phone,
-                    "Welcome to Jasper’s Market, your local grocery store providing farm-fresh produce and high-quality goods!"
-                )
+                # Auto reply
+                send_whatsapp_message(phone)
 
         except Exception as e:
             print("Error:", e)
