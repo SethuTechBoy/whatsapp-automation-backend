@@ -25,6 +25,10 @@ class Customer(models.Model):
     is_active = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
+    def __str__(self):
+        return self.phone_number
+
+
 class Product(models.Model):
     name = models.CharField(max_length=200)
     description = models.TextField()
@@ -35,6 +39,3 @@ class Product(models.Model):
 
     def __str__(self):
         return self.name
-
-    def __str__(self):
-        return self.phone_number
