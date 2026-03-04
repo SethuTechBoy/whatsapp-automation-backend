@@ -7,6 +7,10 @@ VERIFY_TOKEN = "mysecrettoken123"
 @csrf_exempt
 def whatsapp_webhook(request):
 
+    # Handle HEAD request (important)
+    if request.method == "HEAD":
+        return HttpResponse("ok")
+
     # Webhook verification
     if request.method == "GET":
         mode = request.GET.get("hub.mode")
@@ -28,4 +32,4 @@ def whatsapp_webhook(request):
 
         return JsonResponse({"status": "received"}, status=200)
 
-    return JsonResponse({"status": "invalid request"}, status=400)
+    return HttpResponse("ok")
