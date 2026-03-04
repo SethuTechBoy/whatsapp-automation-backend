@@ -5,10 +5,8 @@ import requests
 
 VERIFY_TOKEN = "mysecrettoken123"
 
-# 👉 Meta la irukum Permanent Token
 WHATSAPP_TOKEN = "EAASI3WSjMZA8BQ8AP0AqshFjkvTdOUeLwI25vmyxDs3WbNZCpRvZBqAEKmIsArWE13mipqDsnZBiWBt21QI0VatN7XRiRm7GP23R8sNH986ChOaf5Spnw7d4KX1ah1ImZCem8xrRR1FmgZBaSJLTeZBdJpMaNHDVZBUIVSrEo4wn08abHS6Ie9lUNa9zENREz5jDJIL2eJsNPZBdFWxle2fme0j4ujA4AVvU7sCAlgdIQ"
 
-# 👉 Meta la irukum Phone Number ID
 PHONE_NUMBER_ID = "1065650129956489"
 
 
@@ -36,11 +34,10 @@ def send_whatsapp_message(to, message):
 @csrf_exempt
 def whatsapp_webhook(request):
 
-    # Handle HEAD request
     if request.method == "HEAD":
         return HttpResponse("ok")
 
-    # 🔹 Webhook verification
+    # Webhook verification
     if request.method == "GET":
         mode = request.GET.get("hub.mode")
         token = request.GET.get("hub.verify_token")
@@ -51,7 +48,7 @@ def whatsapp_webhook(request):
         else:
             return HttpResponse("Verification failed", status=403)
 
-    # 🔥 Incoming message
+    # Incoming message
     if request.method == "POST":
         try:
             body = json.loads(request.body)
@@ -70,11 +67,10 @@ def whatsapp_webhook(request):
                 print("User:", phone)
                 print("Message:", text)
 
-                # 🔥 AUTO REPLY
-send_whatsapp_message(
-    phone,
-    "Welcome to Jasper’s Market, your local grocery store providing farm-fresh produce and high-quality goods!"
-)
+                send_whatsapp_message(
+                    phone,
+                    "Welcome to Jasper’s Market, your local grocery store providing farm-fresh produce and high-quality goods!"
+                )
 
         except Exception as e:
             print("Error:", e)
@@ -82,5 +78,3 @@ send_whatsapp_message(
         return JsonResponse({"status": "received"}, status=200)
 
     return HttpResponse("ok")
-
-
