@@ -4,11 +4,10 @@ import json
 
 VERIFY_TOKEN = "mysecrettoken123"
 
-
 @csrf_exempt
 def whatsapp_webhook(request):
 
-    # 🔹 Meta Webhook Verification (GET)
+    # Webhook verification
     if request.method == "GET":
         mode = request.GET.get("hub.mode")
         token = request.GET.get("hub.verify_token")
@@ -19,12 +18,14 @@ def whatsapp_webhook(request):
         else:
             return HttpResponse("Verification failed", status=403)
 
-    # 🔹 Incoming Messages (POST)
+    # Incoming message
     if request.method == "POST":
         try:
             body = json.loads(request.body)
             print("Incoming Data:", body)
         except Exception as e:
-            print("Error parsing JSON:", e)
+            print("Error:", e)
 
         return JsonResponse({"status": "received"}, status=200)
+
+    return JsonResponse({"status": "invalid request"}, status=400)
