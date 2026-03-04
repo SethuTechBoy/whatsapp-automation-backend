@@ -6,10 +6,10 @@ import requests
 VERIFY_TOKEN = "mysecrettoken123"
 
 # 👉 Meta la irukum Permanent Token
-WHATSAPP_TOKEN = "PASTE_YOUR_PERMANENT_TOKEN"
+WHATSAPP_TOKEN = "EAASI3WSjMZA8BQ8AP0AqshFjkvTdOUeLwI25vmyxDs3WbNZCpRvZBqAEKmIsArWE13mipqDsnZBiWBt21QI0VatN7XRiRm7GP23R8sNH986ChOaf5Spnw7d4KX1ah1ImZCem8xrRR1FmgZBaSJLTeZBdJpMaNHDVZBUIVSrEo4wn08abHS6Ie9lUNa9zENREz5jDJIL2eJsNPZBdFWxle2fme0j4ujA4AVvU7sCAlgdIQ"
 
 # 👉 Meta la irukum Phone Number ID
-PHONE_NUMBER_ID = "PASTE_YOUR_PHONE_NUMBER_ID"
+PHONE_NUMBER_ID = "1065650129956489"
 
 
 def send_whatsapp_message(to, message):
@@ -82,3 +82,4 @@ def whatsapp_webhook(request):
         return JsonResponse({"status": "received"}, status=200)
 
     return HttpResponse("ok")
+
